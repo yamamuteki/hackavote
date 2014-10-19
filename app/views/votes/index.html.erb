@@ -4,8 +4,9 @@
   <thead>
     <tr>
       <th>Team no</th>
-      <th>Category</th>
-      <th>Point</th>
+      <th>Point1</th>
+      <th>Point2</th>
+      <th>Point3</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,8 +15,9 @@
     <% @votes.each do |vote| %>
       <tr>
         <td><%= vote.team_no %></td>
-        <td><%= vote.category %></td>
-        <td><%= vote.point %></td>
+        <td><%= vote.point1 %></td>
+        <td><%= vote.point2 %></td>
+        <td><%= vote.point3 %></td>
         <td><%= link_to 'Show', vote %></td>
         <td><%= link_to 'Edit', edit_vote_path(vote) %></td>
         <td><%= link_to 'Destroy', vote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -27,6 +29,3 @@
 <br>
 
 <%= link_to 'New Vote', new_vote_path %>
-
-<div id="slider" style="width:300px;">aaa</div>
-

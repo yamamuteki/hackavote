@@ -4,6 +4,7 @@ class VotesController < ApplicationController
   # GET /votes
   # GET /votes.json
   def index
+    # redirect_to :action => "input"
     @votes = Vote.all
   end
 
@@ -19,16 +20,20 @@ class VotesController < ApplicationController
 
   # GET /votes/input
   def input
+    redirect_to :action => "thanks" if cookies[:done] == "done" 
     @votes = Array.new
     (1..8).each {|n|
-      (1..3).each {|c|
-        vote = Vote.new
-        vote.team_no = n
-        vote.category = c
-        vote.point = 3
-        @votes.push vote
-      }
+      vote = Vote.new
+      vote.team_no = n
+      vote.point1 = 3
+      vote.point2 = 3
+      vote.point3 = 3
+      @votes.push vote
     }
+  end
+
+  def thanks
+    cookies[:done] = "done"
   end
 
   # GET /votes/1/edit
@@ -83,6 +88,6 @@ class VotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vote_params
-      params.require(:vote).permit(:team_no, :category, :point)
+      params.require(:vote).permit(:team_no, :point1, :point2, :point3)
     end
 end

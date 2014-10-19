@@ -1,1 +1,1 @@
-json.extract! @vote, :id, :team_no, :category, :point, :created_at, :updated_at
+json.extract! @vote, :id, :team_no, :point1, :point2, :point3, :created_at, :updated_at

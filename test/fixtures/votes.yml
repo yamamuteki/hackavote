@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_no: 1
+  category: 1
+  point: 1
+
+two:
+  team_no: 1
+  category: 1
+  point: 1

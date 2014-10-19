@@ -44,3 +44,5 @@ gem 'twitter-bootswatch-rails', '~> 3.2.0'
 # twitter bootstrap helpers gem, e.g., alerts etc...
 gem 'twitter-bootswatch-rails-helpers'
 
+gem 'jquery-ui-rails'
+

@@ -12,7 +12,10 @@
  *
  *
  *= require_self
+ *= require bootswatch/loader
+ *= require bootswatch/bootswatch
  *= require flatly
+ *= require jquery-ui
  */
 
 body {

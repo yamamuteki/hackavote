@@ -1,0 +1,33 @@
+<%= form_tag :action => 'new' do %>
+
+<div class="well">
+  評価項目を入力して投票ボタンを押してください。
+</div>
+
+<table class"table">
+  <thead>
+    <tr>
+      <th>Team no</th>
+      <th>Category</th>
+      <th>Point</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @votes.each do |vote| %>
+      <tr>
+        <td><%= vote.team_no %></td>
+        <td><%= vote.category %></td>
+        <td><%= number_field_tag("votes[][point]", vote.point) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= submit_tag "投票する", :class => "btn btn-primary" %>
+
+<div id="slider" style="width:300px;">aaa</div>
+
+<% end %>

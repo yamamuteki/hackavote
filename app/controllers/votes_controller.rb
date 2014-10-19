@@ -17,6 +17,20 @@ class VotesController < ApplicationController
     @vote = Vote.new
   end
 
+  # GET /votes/input
+  def input
+    @votes = Array.new
+    (1..8).each {|n|
+      (1..3).each {|c|
+        vote = Vote.new
+        vote.team_no = n
+        vote.category = c
+        vote.point = 3
+        @votes.push vote
+      }
+    }
+  end
+
   # GET /votes/1/edit
   def edit
   end

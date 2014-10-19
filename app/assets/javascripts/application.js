@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootswatch/loader
+//= require bootswatch/bootswatch
 //= require turbolinks
 //= require flatly
-
+//= require jquery-ui
+//= require_tree .

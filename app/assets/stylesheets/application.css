@@ -14,3 +14,7 @@
  *= require_self
  *= require flatly
  */
+
+body {
+	padding-top: 40px;
+}

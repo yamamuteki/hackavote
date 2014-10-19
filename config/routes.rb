@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  root 'votes#input'
+
   resources :votes do
     collection do
       get 'input'

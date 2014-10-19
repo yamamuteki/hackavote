@@ -1,0 +1,30 @@
+<div class="well">評価項目を入力して投票ボタンを押してください。自分のチームには３を入力してください。</div>
+
+<table class="table table-striped p25">
+  <thead>
+    <tr>
+      <th>Team No.</th>
+      <th>チームワーク</th>
+      <th>面白さ</th>
+      <th>技術的斬新さ</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vote2s.each do |vote2| %>
+      <tr>
+        <td><%= vote2.team_no %></td>
+        <td><%= select_tag vote2.point1, options_for_select(%w[1 2 3 4 5], :selected => "3") %></td>
+        <td><%= select_tag vote2.point2, options_for_select(%w[1 2 3 4 5], :selected => "3") %></td>
+        <td><%= select_tag vote2.point3, options_for_select(%w[1 2 3 4 5], :selected => "3") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+
+<%= link_to '投票する', { :action => "thanks" }, { :class => "btn btn-primary" } %>
+
+</p>
+

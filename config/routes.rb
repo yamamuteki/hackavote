@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :vote2s do
+    collection do
+      get 'input'
+      get 'thanks'
+    end
+  end
+
   resources :votes do
     collection do
       get 'input'

@@ -18,7 +18,7 @@
       <tr>
         <td><%= vote.team_no %></td>
         <td><%= vote.category %></td>
-        <td><%= number_field_tag("votes[][point]", vote.point) %></td>
+        <td><%= select_tag(vote.point, options_for_select(%w[1 2 3 4 5], :selected => "3")) %></td>
       </tr>
     <% end %>
   </tbody>

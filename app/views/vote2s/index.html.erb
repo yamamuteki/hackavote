@@ -1,0 +1,31 @@
+<h1>Listing vote2s</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Team no</th>
+      <th>Point1</th>
+      <th>Point2</th>
+      <th>Point3</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vote2s.each do |vote2| %>
+      <tr>
+        <td><%= vote2.team_no %></td>
+        <td><%= vote2.point1 %></td>
+        <td><%= vote2.point2 %></td>
+        <td><%= vote2.point3 %></td>
+        <td><%= link_to 'Show', vote2 %></td>
+        <td><%= link_to 'Edit', edit_vote2_path(vote2) %></td>
+        <td><%= link_to 'Destroy', vote2, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Vote2', new_vote2_path %>

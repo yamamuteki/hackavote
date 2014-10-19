@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :votes do
     collection do
       get 'input'
+      post 'regist'
       get 'thanks'
       get 'done'
       get 'point1'

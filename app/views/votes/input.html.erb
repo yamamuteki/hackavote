@@ -1,3 +1,5 @@
+<%= form_tag('regist') do %>
+
 <div class="well">評価項目を入力して投票ボタンを押してください。自分のチームには３を入力してください。</div>
 
 <table class="table table-striped p25">
@@ -13,10 +15,10 @@
   <tbody>
     <% @votes.each do |vote| %>
       <tr>
-        <td><%= vote.team_no %></td>
-        <td><%= select_tag vote.point1, options_for_select(%w[1 2 3 4 5], :selected => "3") %></td>
-        <td><%= select_tag vote.point2, options_for_select(%w[1 2 3 4 5], :selected => "3") %></td>
-        <td><%= select_tag vote.point3, options_for_select(%w[1 2 3 4 5], :selected => "3") %></td>
+        <td><%= vote.team_no %><%= hidden_field_tag "votes[][team_no]", vote.team_no %></td>
+        <td><%= select_tag "votes[][point1]", options_for_select(%w[1 2 3 4 5], :selected => vote.point1) %></td>
+        <td><%= select_tag "votes[][point2]", options_for_select(%w[1 2 3 4 5], :selected => vote.point2) %></td>
+        <td><%= select_tag "votes[][point3]", options_for_select(%w[1 2 3 4 5], :selected => vote.point3) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,7 +26,9 @@
 
 <p>
 
-<%= link_to '投票する', { :action => "thanks" }, { :class => "btn btn-primary" } %>
+<%= submit_tag '投票する', :class => "btn btn-primary" %>
 
 </p>
+
+<% end %>
 

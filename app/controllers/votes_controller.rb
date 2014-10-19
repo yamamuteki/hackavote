@@ -32,8 +32,24 @@ class VotesController < ApplicationController
     }
   end
 
+  def regist
+    votes = params["votes"]
+
+    votes.each {|vote|
+      puts vote
+      entity = Vote.new
+      entity.team_no = vote["team_no"]
+      entity.point1 = vote["point1"]
+      entity.point2 = vote["point2"]
+      entity.point3 = vote["point3"]
+      entity.save
+    }
+
+    redirect_to :action => "thanks"
+  end
+
   def thanks
-    cookies[:done] = "done"
+    # cookies[:done] = "done"
   end
 
   def done

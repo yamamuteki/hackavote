@@ -36,6 +36,21 @@ class VotesController < ApplicationController
     cookies[:done] = "done"
   end
 
+  def done
+  end
+
+  def point1
+  end
+
+  def point2
+  end
+
+  def point3
+  end
+
+  def total
+  end
+
   # GET /votes/1/edit
   def edit
   end

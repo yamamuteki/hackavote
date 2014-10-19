@@ -3,6 +3,11 @@ Rails.application.routes.draw do
     collection do
       get 'input'
       get 'thanks'
+      get 'done'
+      get 'point1'
+      get 'point2'
+      get 'point3'
+      get 'total'
     end
   end
 

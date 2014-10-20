@@ -1,0 +1,27 @@
+<h1>チームワーク</h1>
+<div class="well">総合1位のチームは除外しています。</div>
+
+<table class="table table-striped table-layout-fixed">
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>チーム</th>
+      <th>チームワーク</th>
+      <th>面白さ</th>
+      <th>技術的斬新さ</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% number = @vote_summaries.count + 1 %>
+    <% @vote_summaries.each do |vote_summary| %>
+      <tr>
+        <td><%= vote_summary.rank %></td>
+        <td>チーム <%= vote_summary.team_no %></td>
+        <td><strong><%= vote_summary.score1 %></strong></td>
+        <td><%= vote_summary.score2 %></td>
+        <td><%= vote_summary.score3 %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -57,30 +57,62 @@ class VotesController < ApplicationController
 
   def score1
     @vote_summaries = create_vote_summaries
+    delete_1st_rank @vote_summaries
     @vote_summaries.sort_by! { |n| [-n.score1, n.team_no] }
-    ranking @vote_summaries
+    rank = 0
+    last_score = 0
+    @vote_summaries.each {|n|
+      rank += 1 if n.score1 != last_score
+      n.rank = rank
+      last_score = n.score1
+    }
     @vote_summaries = top_ranking @vote_summaries
   end
 
   def score2
     @vote_summaries = create_vote_summaries
+    delete_1st_rank @vote_summaries
     @vote_summaries.sort_by! { |n| [-n.score2, n.team_no] }
-    ranking @vote_summaries
+    rank = 0
+    last_score = 0
+    @vote_summaries.each {|n|
+      rank += 1 if n.score2 != last_score
+      n.rank = rank
+      last_score = n.score2
+    }
     @vote_summaries = top_ranking @vote_summaries
   end
 
   def score3
     @vote_summaries = create_vote_summaries
+    delete_1st_rank @vote_summaries
     @vote_summaries.sort_by! { |n| [-n.score3, n.team_no] }
-    ranking @vote_summaries
+    rank = 0
+    last_score = 0
+    @vote_summaries.each {|n|
+      rank += 1 if n.score3 != last_score
+      n.rank = rank
+      last_score = n.score3
+    }
     @vote_summaries = top_ranking @vote_summaries
   end
 
   def total
-    @vote_summaries = create_vote_summaries
-    @vote_summaries.sort_by! { |n| [-n.total_score, n.team_no] }
-    ranking @vote_summaries
-    @vote_summaries = top_ranking @vote_summaries
+    @vote_summaries = create_total_summaries
+  end
+
+  def create_total_summaries
+    vote_summaries = create_vote_summaries
+    vote_summaries.sort_by! { |n| [-n.total_score, n.team_no] }
+    rank = 0
+    last_score = 0
+    vote_summaries.each {|n|
+      rank += 1 if n.total_score != last_score
+      n.rank = rank
+      last_score = n.total_score
+    }
+    vote_summaries = top_ranking vote_summaries
+    return vote_summaries
   end
 
   def create_vote_summaries
@@ -99,18 +131,13 @@ class VotesController < ApplicationController
     return vote_summaries
   end
 
-  def ranking(vote_summaries)
-    rank = 0
-    last_score = 0
-    vote_summaries.each {|n|
-      rank += 1 if n.total_score != last_score
-      n.rank = rank
-      last_score = n.total_score
-    }   
-  end
-
   def top_ranking(vote_summaries)
     return vote_summaries.select { |n| n.rank <= 3 }
+  end
+
+  def delete_1st_rank(vote_summaries)
+    create_total_summaries.select{|n| n.rank == 1}
+      .each{|n|vote_summaries.delete_if{|s| s.team_no == n.team_no}}
   end
 
   # GET /votes/1/edit

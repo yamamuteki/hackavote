@@ -11,15 +11,24 @@
  * file per style scope.
  *
  *
- *= require_self
  *= require jquery-ui
  *= require_tree .
+ *= require_self
  */
 
 body {
 	padding-top: 70px;
 }
 
-.p25 th, .p25 td {
-	width: 20%;
+.table-layout-fixed {
+	table-layout:fixed;
+}
+
+.table > thead > tr > th, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > th, 
+.table > thead > tr > td, 
+.table > tbody > tr > td, 
+.table > tfoot > tr > td {
+	vertical-align: middle;
 }

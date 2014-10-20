@@ -55,16 +55,62 @@ class VotesController < ApplicationController
   def done
   end
 
-  def point1
+  def score1
+    @vote_summaries = create_vote_summaries
+    @vote_summaries.sort_by! { |n| [-n.score1, n.team_no] }
+    ranking @vote_summaries
+    @vote_summaries = top_ranking @vote_summaries
   end
 
-  def point2
+  def score2
+    @vote_summaries = create_vote_summaries
+    @vote_summaries.sort_by! { |n| [-n.score2, n.team_no] }
+    ranking @vote_summaries
+    @vote_summaries = top_ranking @vote_summaries
   end
 
-  def point3
+  def score3
+    @vote_summaries = create_vote_summaries
+    @vote_summaries.sort_by! { |n| [-n.score3, n.team_no] }
+    ranking @vote_summaries
+    @vote_summaries = top_ranking @vote_summaries
   end
 
   def total
+    @vote_summaries = create_vote_summaries
+    @vote_summaries.sort_by! { |n| [-n.total_score, n.team_no] }
+    ranking @vote_summaries
+    @vote_summaries = top_ranking @vote_summaries
+  end
+
+  def create_vote_summaries
+    vote_summaries = Array.new
+    votes = Vote.all
+    votes.map { |vote| vote.team_no }.uniq.each {|n|
+      team_votes = votes.select { |vote| vote.team_no == n }
+      vote_summary = VoteSummary.new
+      vote_summary.team_no = n
+      puts team_votes
+      vote_summary.score1 = team_votes.inject(0) { |sum, n| sum + n.point1 }
+      vote_summary.score2 = team_votes.inject(0) { |sum, n| sum + n.point2 }
+      vote_summary.score3 = team_votes.inject(0) { |sum, n| sum + n.point3 }
+      vote_summaries.push vote_summary
+    }
+    return vote_summaries
+  end
+
+  def ranking(vote_summaries)
+    rank = 0
+    last_score = 0
+    vote_summaries.each {|n|
+      rank += 1 if n.total_score != last_score
+      n.rank = rank
+      last_score = n.total_score
+    }   
+  end
+
+  def top_ranking(vote_summaries)
+    return vote_summaries.select { |n| n.rank <= 3 }
   end
 
   # GET /votes/1/edit

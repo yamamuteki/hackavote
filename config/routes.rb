@@ -8,9 +8,9 @@ Rails.application.routes.draw do
       post 'regist'
       get 'thanks'
       get 'done'
-      get 'point1'
-      get 'point2'
-      get 'point3'
+      get 'score1'
+      get 'score2'
+      get 'score3'
       get 'total'
     end
   end

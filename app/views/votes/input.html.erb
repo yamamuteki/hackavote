@@ -3,21 +3,11 @@
 <div class="form-horizontal" role="form">
   <%= form_for(@vote) do |f| %>
     <fieldset>
-      <% if @vote.errors.any? %>
-        <div id="error_explanation">
-          <ul>
-          <% @vote.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
       <div class="form-group">
         <label class="col-xs-4 control-label">チーム</label>
         <div class="col-xs-8">
           <div class="radio">
-            <label><%= f.radio_button :team_no, "1" %> チーム 1</label>
+            <label><%= f.radio_button :team_no, "1", {:checked => true} %> チーム 1</label>
           </div>
           <div class="radio">
             <label><%= f.radio_button :team_no, "2" %> チーム 2</label>

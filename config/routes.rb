@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get 'thanks'
       get 'done'
       get 'total'
+      post 'reset'
     end
   end
 

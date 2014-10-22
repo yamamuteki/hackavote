@@ -20,12 +20,12 @@ class VotesController < ApplicationController
 
   # GET /votes/input
   def input
-    redirect_to :action => "thanks" if cookies[:done] == "done" 
+    redirect_to :action => :thanks if cookies[:done] == :done 
     @vote = Vote.new
   end
 
   def thanks
-    # cookies[:done] = "done"
+    # cookies[:done] = :done
   end
 
   def done
@@ -62,6 +62,11 @@ class VotesController < ApplicationController
     return vote_summaries
   end
 
+  def reset
+    Vote.delete_all
+    redirect_to :action => :total
+  end
+
   def top_ranking(vote_summaries)
     return vote_summaries.select { |n| n.rank <= 1 }
   end
@@ -75,7 +80,7 @@ class VotesController < ApplicationController
   def create
     @vote = Vote.new(vote_params)
     @vote.save
-    redirect_to :action => "thanks"
+    redirect_to :action => :thanks
   end
 
   # PATCH/PUT /votes/1

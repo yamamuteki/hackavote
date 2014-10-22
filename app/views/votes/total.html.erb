@@ -20,3 +20,7 @@
     <% end %>
   </tbody>
 </table>
+
+<%= form_tag('reset') do %>
+  <%= submit_tag 'すべての投票データを削除', :class => "btn btn-danger pull-right", :data => { :confirm => "この操作は取り消せません。よろしいですか？" } %>
+<% end %>

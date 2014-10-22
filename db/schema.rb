@@ -11,13 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019074016) do
+ActiveRecord::Schema.define(version: 20141022123728) do
 
   create_table "votes", force: true do |t|
     t.integer  "team_no"
-    t.integer  "point1"
-    t.integer  "point2"
-    t.integer  "point3"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

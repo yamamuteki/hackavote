@@ -5,12 +5,8 @@ Rails.application.routes.draw do
   resources :votes do
     collection do
       get 'input'
-      post 'regist'
       get 'thanks'
       get 'done'
-      get 'score1'
-      get 'score2'
-      get 'score3'
       get 'total'
     end
   end

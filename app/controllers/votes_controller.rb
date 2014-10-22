@@ -21,31 +21,7 @@ class VotesController < ApplicationController
   # GET /votes/input
   def input
     redirect_to :action => "thanks" if cookies[:done] == "done" 
-    @votes = Array.new
-    (1..8).each {|n|
-      vote = Vote.new
-      vote.team_no = n
-      vote.point1 = 3
-      vote.point2 = 3
-      vote.point3 = 3
-      @votes.push vote
-    }
-  end
-
-  def regist
-    votes = params["votes"]
-
-    votes.each {|vote|
-      puts vote
-      entity = Vote.new
-      entity.team_no = vote["team_no"]
-      entity.point1 = vote["point1"]
-      entity.point2 = vote["point2"]
-      entity.point3 = vote["point3"]
-      entity.save
-    }
-
-    redirect_to :action => "thanks"
+    @vote = Vote.new
   end
 
   def thanks
@@ -55,61 +31,19 @@ class VotesController < ApplicationController
   def done
   end
 
-  def score1
-    @vote_summaries = create_vote_summaries
-    delete_1st_rank @vote_summaries
-    @vote_summaries.sort_by! { |n| [-n.score1, n.team_no] }
-    rank = 0
-    last_score = 0
-    @vote_summaries.each {|n|
-      rank += 1 if n.score1 != last_score
-      n.rank = rank
-      last_score = n.score1
-    }
-    @vote_summaries = top_ranking @vote_summaries
-  end
-
-  def score2
-    @vote_summaries = create_vote_summaries
-    delete_1st_rank @vote_summaries
-    @vote_summaries.sort_by! { |n| [-n.score2, n.team_no] }
-    rank = 0
-    last_score = 0
-    @vote_summaries.each {|n|
-      rank += 1 if n.score2 != last_score
-      n.rank = rank
-      last_score = n.score2
-    }
-    @vote_summaries = top_ranking @vote_summaries
-  end
-
-  def score3
-    @vote_summaries = create_vote_summaries
-    delete_1st_rank @vote_summaries
-    @vote_summaries.sort_by! { |n| [-n.score3, n.team_no] }
-    rank = 0
-    last_score = 0
-    @vote_summaries.each {|n|
-      rank += 1 if n.score3 != last_score
-      n.rank = rank
-      last_score = n.score3
-    }
-    @vote_summaries = top_ranking @vote_summaries
-  end
-
   def total
     @vote_summaries = create_total_summaries
   end
 
   def create_total_summaries
     vote_summaries = create_vote_summaries
-    vote_summaries.sort_by! { |n| [-n.total_score, n.team_no] }
+    vote_summaries.sort_by! { |n| [-n.score, n.team_no] }
     rank = 0
     last_score = 0
     vote_summaries.each {|n|
-      rank += 1 if n.total_score != last_score
+      rank += 1 if n.score != last_score
       n.rank = rank
-      last_score = n.total_score
+      last_score = n.score
     }
     vote_summaries = top_ranking vote_summaries
     return vote_summaries
@@ -122,22 +56,14 @@ class VotesController < ApplicationController
       team_votes = votes.select { |vote| vote.team_no == n }
       vote_summary = VoteSummary.new
       vote_summary.team_no = n
-      puts team_votes
-      vote_summary.score1 = team_votes.inject(0) { |sum, n| sum + n.point1 }
-      vote_summary.score2 = team_votes.inject(0) { |sum, n| sum + n.point2 }
-      vote_summary.score3 = team_votes.inject(0) { |sum, n| sum + n.point3 }
+      vote_summary.score = team_votes.count
       vote_summaries.push vote_summary
     }
     return vote_summaries
   end
 
   def top_ranking(vote_summaries)
-    return vote_summaries.select { |n| n.rank <= 3 }
-  end
-
-  def delete_1st_rank(vote_summaries)
-    create_total_summaries.select{|n| n.rank == 1}
-      .each{|n|vote_summaries.delete_if{|s| s.team_no == n.team_no}}
+    return vote_summaries.select { |n| n.rank <= 1 }
   end
 
   # GET /votes/1/edit
@@ -148,16 +74,8 @@ class VotesController < ApplicationController
   # POST /votes.json
   def create
     @vote = Vote.new(vote_params)
-
-    respond_to do |format|
-      if @vote.save
-        format.html { redirect_to @vote, notice: 'Vote was successfully created.' }
-        format.json { render :show, status: :created, location: @vote }
-      else
-        format.html { render :new }
-        format.json { render json: @vote.errors, status: :unprocessable_entity }
-      end
-    end
+    @vote.save
+    redirect_to :action => "thanks"
   end
 
   # PATCH/PUT /votes/1
@@ -192,6 +110,6 @@ class VotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vote_params
-      params.require(:vote).permit(:team_no, :point1, :point2, :point3)
+      params.require(:vote).permit(:team_no)
     end
 end

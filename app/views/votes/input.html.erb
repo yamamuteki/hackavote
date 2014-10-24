@@ -4,36 +4,36 @@
   <%= form_for(@vote) do |f| %>
     <fieldset>
       <div class="form-group">
-        <label class="col-xs-4 control-label">チーム</label>
-        <div class="col-xs-8">
+        <label class="col-xs-3 control-label">チーム</label>
+        <div class="col-xs-9">
           <div class="radio">
-            <label><%= f.radio_button :team_no, "1", {:checked => true} %> チーム 1</label>
+            <label><%= f.radio_button :team_no, "1", {:checked => true} %> チーム１「 エンジニアの朝は早い 」</label>
           </div>
           <div class="radio">
-            <label><%= f.radio_button :team_no, "2" %> チーム 2</label>
+            <label><%= f.radio_button :team_no, "2" %> チーム２「 チーム モテ 」</label>
           </div>
           <div class="radio">
-            <label><%= f.radio_button :team_no, "3" %> チーム 3</label>
+            <label><%= f.radio_button :team_no, "3" %> チーム３「 m3hack3 」</label>
           </div>
           <div class="radio">
-            <label><%= f.radio_button :team_no, "4" %> チーム 4</label>
+            <label><%= f.radio_button :team_no, "4" %> チーム４「 Fibonacciとゆかいな仲間たち 」</label>
           </div>
           <div class="radio">
-            <label><%= f.radio_button :team_no, "5" %> チーム 5</label>
+            <label><%= f.radio_button :team_no, "6" %> チーム６「 ジバニャン 」</label>
           </div>
           <div class="radio">
-            <label><%= f.radio_button :team_no, "6" %> チーム 6</label>
+            <label><%= f.radio_button :team_no, "7" %> チーム７「 Route7 」</label>
           </div>
           <div class="radio">
-            <label><%= f.radio_button :team_no, "7" %> チーム 7</label>
+            <label><%= f.radio_button :team_no, "8" %> チーム８「 電源不足 」</label>
           </div>
           <div class="radio">
-            <label><%= f.radio_button :team_no, "8" %> チーム 8</label>
+            <label><%= f.radio_button :team_no, "5" %> チーム５「 アカサカハンズフリーズ 」</label>
           </div>
         </div>
       </div>
       <div class="form-group">
-        <div class="col-xs-offset-4 col-xs-8">
+        <div class="col-xs-offset-3 col-xs-9">
           <%= f.submit  '投票する', :class => "btn btn-primary", :data => { :confirm => "投票は1回だけです。よろしいですか？" } %>
         </div>
       </div>
